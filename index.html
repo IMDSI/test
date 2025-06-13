@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宿舍生活家图谱 | 测测你的专属生活作息与兴趣标签</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>宿舍生活家图谱</h1>
+            <p>解锁你的专属作息&兴趣标签，遇见同频室友/伙伴！</p>
+        </header>
+
+        <main id="quiz-container">
+            <!-- 题目将由JavaScript动态生成 -->
+        </main>
+
+        <div id="result-container" class="hidden">
+            <div class="result-card">
+                <h2>你的专属生活家标签</h2>
+                <div id="tags-container"></div>
+                <div class="share-section">
+                    <p>分享你的测试结果，寻找同频伙伴吧！</p>
+                    <button id="copy-btn">复制分享链接</button>
+                    <div class="social-icons">
+                        <span>分享到：</span>
+                        <button class="share-icon wechat">微信</button>
+                        <button class="share-icon weibo">微博</button>
+                        <button class="share-icon qq">QQ</button>
+                    </div>
+                </div>
+                <button id="restart-btn">重新测试</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
