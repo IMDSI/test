@@ -328,94 +328,132 @@ button:hover {
 }
 
 @media (max-width: 768px) {
-  /* 移除原有选项样式 */
-  .options {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    padding: 10px 0;
-  }
-  
-  .option {
-    flex: 1;
-    text-align: center;
-    margin: 0 2px;
-  }
-  
-  /* 隐藏文字标签 */
-  .option label span {
-    display: none;
-  }
-  
-  /* 视觉化选项点 */
-  .option label::before {
-    content: "";
-    display: block;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    margin: 0 auto;
-    background: #e0e0e0;
-    transition: all 0.3s ease;
-  }
-  
-  /* 不同位置的样式 */
-  .option:nth-child(1) label::before {
-    content: "×";
-    background: #ff6b6b;
-    color: white;
-    font-size: 16px;
-    line-height: 24px;
-  }
-  
-  .option:nth-child(2) label::before {
-    width: 18px;
-    height: 18px;
-    background: #f8c4c4;
-  }
-  
-  .option:nth-child(3) label::before {
-    content: "●";
-    background: #4361ee;
-    color: white;
-    font-size: 16px;
-    line-height: 24px;
-  }
-  
-  .option:nth-child(4) label::before {
-    width: 18px;
-    height: 18px;
-    background: #c4d0f8;
-  }
-  
-  .option:nth-child(5) label::before {
-    content: "√";
-    background: #51cf66;
-    color: white;
-    font-size: 16px;
-    line-height: 24px;
-  }
-  
-  /* 选中状态 */
-  .option input[type="radio"]:checked + label::before {
-    transform: scale(1.2);
-    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.3);
-  }
-  
-  /* 添加说明文字 */
-  .slider-labels {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    color: #666;
-    padding: 5px 0;
-  }
-
-  /* 问题文字调整 */
-  .question p {
-    font-size: 1rem;
-    margin-bottom: 10px;
-  }
+    /* === 移除所有背景框 === */
+    .options {
+        display: flex;
+        justify-content: space-between; /* 均匀分布 */
+        padding: 10px 0 5px;
+        background: none; /* 移除背景 */
+        border: none; /* 移除边框 */
+        box-shadow: none; /* 移除阴影 */
+        gap: 4px; /* 紧凑间距 */
+    }
+    
+    .option {
+        flex: 1; /* 平均分配空间 */
+        text-align: center;
+        margin: 0;
+        background: none !important; /* 确保无背景 */
+    }
+    
+    .option label {
+        background: transparent !important; /* 透明背景 */
+        padding: 8px 0; /* 减少内边距 */
+        border-radius: 0; /* 移除圆角 */
+    }
+    
+    .option label:hover {
+        background: transparent !important; /* 悬停无变化 */
+    }
+    
+    /* === 纯圆点样式 === */
+    .option label::before {
+        content: "";
+        display: block;
+        width: 24px; /* 保持足够点击区域 */
+        height: 24px;
+        border-radius: 50%;
+        margin: 0 auto;
+        background: #e0e0e0;
+        transition: all 0.2s ease;
+    }
+    
+    /* 最左侧：非常不同意 */
+    .option:nth-child(1) label::before {
+        content: "×";
+        background: #ff6b6b;
+        color: white;
+        font-size: 16px;
+        line-height: 24px;
+    }
+    
+    /* 左侧 */
+    .option:nth-child(2) label::before {
+        width: 18px;
+        height: 18px;
+        background: #f8c4c4;
+    }
+    
+    /* 中间 */
+    .option:nth-child(3) label::before {
+        content: "●";
+        background: #4361ee;
+        color: white;
+        font-size: 16px;
+        line-height: 24px;
+    }
+    
+    /* 右侧 */
+    .option:nth-child(4) label::before {
+        width: 18px;
+        height: 18px;
+        background: #c4d0f8;
+    }
+    
+    /* 最右侧：非常同意 */
+    .option:nth-child(5) label::before {
+        content: "√";
+        background: #51cf66;
+        color: white;
+        font-size: 16px;
+        line-height: 24px;
+    }
+    
+    /* === 选中效果优化 === */
+    .option input[type="radio"]:checked + label::before {
+        transform: scale(1.25); /* 放大选中项 */
+        box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.5); /* 柔和光晕 */
+    }
+    
+    /* === 标签样式优化 === */
+    .slider-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.75rem;
+        font-weight: 500; /* 中等粗细 */
+        color: #4361ee; /* 主题色 */
+        padding: 0 5px; /* 与圆点对齐 */
+        margin-top: -5px; /* 靠近圆点 */
+    }
+    
+    /* === 题目容器优化 === */
+    .question {
+        padding: 15px 10px; /* 减少侧边距 */
+    }
+    
+    .question p {
+        font-size: 0.95rem;
+        margin-bottom: 12px;
+    }
+    
+    /* === 额外：添加微妙的连接线 === */
+    .options {
+        position: relative;
+    }
+    
+    .options::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(to right, 
+            transparent 10%, 
+            #e0e0e0 10% 90%, 
+            transparent 90%);
+        z-index: -1;
+    }
 }
 
 .hidden {
