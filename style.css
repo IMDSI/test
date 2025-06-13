@@ -1,3 +1,7 @@
+/* ====================== */
+/* 同频空间 - 终极样式表 */
+/* ====================== */
+
 /* 基础样式重置 */
 * {
     margin: 0;
@@ -9,59 +13,78 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #333;
-    background-color: #f8f9fa;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
     padding: 20px;
+    min-height: 100vh;
 }
 
 .container {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 2rem auto;
     background: white;
-    border-radius: 15px;
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     padding: 30px;
     position: relative;
     overflow: hidden;
+    border: 1px solid #eef2f6;
 }
 
+/* 头部样式 */
 header {
     text-align: center;
     margin-bottom: 30px;
     padding-bottom: 20px;
     border-bottom: 2px solid #f0f0f0;
+    position: relative;
+}
+
+header::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 25%;
+    width: 50%;
+    height: 3px;
+    background: linear-gradient(to right, transparent, #4361ee, transparent);
 }
 
 h1 {
     color: #4361ee;
     font-size: 2.5rem;
     margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-p {
+header p {
     color: #6c757d;
     font-size: 1.1rem;
+    max-width: 80%;
+    margin: 0 auto;
 }
 
 /* 题目样式 */
 .question {
     background: #fff;
-    border-radius: 12px;
+    border-radius: 15px;
     padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+    border: 1px solid #f0f4f8;
 }
 
 .question:hover {
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 20px rgba(67, 97, 238, 0.1);
 }
 
 .question p {
     font-weight: 600;
     margin-bottom: 15px;
     font-size: 1.1rem;
-    color: #212529;
+    color: #2d3748;
+    line-height: 1.4;
 }
 
 .options {
@@ -103,7 +126,7 @@ p {
 
 /* 按钮样式 */
 button {
-    background: #4361ee;
+    background: linear-gradient(to right, #4361ee, #3a56d4);
     color: white;
     border: none;
     padding: 14px 28px;
@@ -114,13 +137,29 @@ button {
     display: block;
     margin: 30px auto;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+    box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: 0.5s;
 }
 
 button:hover {
-    background: #3a56d4;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(67, 97, 238, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+}
+
+button:hover::before {
+    left: 100%;
 }
 
 #submit-btn {
@@ -136,15 +175,16 @@ button:hover {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .result-card {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: white;
     border-radius: 20px;
     padding: 40px 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid #edf2f7;
 }
 
 #tags-container {
@@ -156,38 +196,48 @@ button:hover {
 }
 
 .tag {
-    background: white;
-    border-radius: 50px;
-    padding: 15px 25px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    padding: 20px 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     font-size: 1.3rem;
     font-weight: bold;
     display: flex;
     align-items: center;
     min-width: 250px;
+    transition: transform 0.3s ease;
+    border: 1px solid #e2e8f0;
+}
+
+.tag:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(67, 97, 238, 0.1);
 }
 
 .tag-icon {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-right: 15px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
 }
 
 .tag-desc {
     display: block;
     font-size: 1rem;
     font-weight: normal;
-    color: #6c757d;
-    margin-top: 8px;
+    color: #4a5568;
+    margin-top: 10px;
     font-style: italic;
+    line-height: 1.4;
 }
 
 /* 分享区域样式 */
 .share-section {
     background: white;
     border-radius: 15px;
-    padding: 20px;
+    padding: 25px;
     margin: 30px 0;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    border: 1px solid #edf2f7;
 }
 
 .social-icons {
@@ -196,6 +246,7 @@ button:hover {
     align-items: center;
     gap: 15px;
     margin-top: 20px;
+    flex-wrap: wrap;
 }
 
 .share-icon {
@@ -207,243 +258,239 @@ button:hover {
     display: flex;
     align-items: center;
     gap: 8px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
 
 .wechat {
-    background: #2aac45;
+    background: linear-gradient(to right, #2aac45, #228e3a);
     color: white;
 }
 
 .weibo {
-    background: #e6162d;
+    background: linear-gradient(to right, #e6162d, #c41429);
     color: white;
 }
 
 .qq {
-    background: #12b7f5;
+    background: linear-gradient(to right, #12b7f5, #0a9bd4);
     color: white;
 }
 
 .share-icon:hover {
     transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* 添加在移动端媒体查询之前 */
+/* ====================== */
+/* 移动端优化 - 终极解决方案 */
+/* ====================== */
 .slider-labels {
-    display: none; /* 默认全部隐藏 */
+    display: none; /* 默认隐藏 */
 }
 
 @media (max-width: 768px) {
-    /* 保留原有移动端样式... */
-    .slider-labels {
-        display: flex; /* 仅在移动端显示 */
+    /* 容器优化 */
+    .container {
+        padding: 20px 15px;
+        margin: 1rem auto;
+        border-radius: 15px;
     }
-}
-
-/* ====================== */
-/* 移动端优化 - 紧凑圆点布局 */
-/* ====================== */
-@media (max-width: 768px) {
-    /* === 超紧凑布局 === */
+    
+    /* 头部优化 */
+    h1 {
+        font-size: 2rem;
+    }
+    
+    header p {
+        font-size: 1rem;
+    }
+    
+    /* 问题优化 */
+    .question {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .question p {
+        font-size: 1rem;
+    }
+    
+    /* === 核心：选项布局解决方案 === */
     .options {
         display: flex;
         justify-content: space-between;
         padding: 10px 0 5px;
-        gap: 0; /* 完全消除间距 */
-        flex-wrap: nowrap; /* 强制单行显示 */
-        overflow: visible; /* 允许轻微超出 */
+        gap: 0;
+        flex-wrap: nowrap;
     }
     
+    /* 魔法属性：移除选项容器布局影响 */
     .option {
-        flex: 0 0 auto; /* 禁止伸缩 */
-        margin: 0; /* 无外边距 */
-        transform: scale(0.9); /* 整体缩小10% */
-        transform-origin: center;
+        display: contents !important;
     }
     
-    /* === 极简圆点设计 === */
+    /* 直接控制标签样式 */
     .option label {
+        display: inline-block;
+        padding: 0;
+        margin: 0 2px;
         background: transparent !important;
-        padding: 6px 0; /* 最小内边距 */
-        border-radius: 0;
+        flex: 1;
+        min-width: auto;
     }
     
-    .option label span {
-        display: none; /* 隐藏文字标签 */
-    }
-    
+    /* 圆点样式 */
     .option label::before {
         content: "";
         display: block;
-        width: 20px;
-        height: 20px;
+        width: 22px;
+        height: 22px;
         border-radius: 50%;
         margin: 0 auto;
         background: #e0e0e0;
         transition: all 0.2s ease;
     }
     
-    /* 最左侧：非常不同意 */
+    /* 非常不同意 */
     .option:nth-child(1) label::before {
         content: "×";
         background: #ff6b6b;
         color: white;
         font-size: 14px;
-        line-height: 20px;
+        line-height: 22px;
     }
     
-    /* 左侧 */
+    /* 不太符合 */
     .option:nth-child(2) label::before {
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
         background: #f8c4c4;
     }
     
-    /* 中间 */
+    /* 一般 */
     .option:nth-child(3) label::before {
         content: "●";
         background: #4361ee;
         color: white;
         font-size: 14px;
-        line-height: 20px;
+        line-height: 22px;
     }
     
-    /* 右侧 */
+    /* 比较符合 */
     .option:nth-child(4) label::before {
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
         background: #c4d0f8;
     }
     
-    /* 最右侧：非常同意 */
+    /* 非常同意 */
     .option:nth-child(5) label::before {
         content: "√";
         background: #51cf66;
         color: white;
         font-size: 14px;
-        line-height: 20px;
+        line-height: 22px;
     }
     
-    /* === 选中效果优化 === */
+    /* 选中效果 */
     .option input[type="radio"]:checked + label::before {
-        transform: scale(1.25); /* 放大选中项 */
-        box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.5); /* 柔和光晕 */
+        transform: scale(1.25);
+        box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.3);
     }
     
-    /* === 标签样式优化 === */
+    /* 显示标签说明 */
     .slider-labels {
         display: flex;
         justify-content: space-between;
         font-size: 0.75rem;
-        font-weight: 500; /* 中等粗细 */
-        color: #4361ee; /* 主题色 */
-        padding: 0 5px; /* 与圆点对齐 */
-        margin-top: -5px; /* 靠近圆点 */
+        font-weight: 600;
+        color: #4361ee;
+        padding: 0 5px;
+        margin-top: 5px;
     }
     
-    /* === 题目容器优化 === */
-    .question {
-        padding: 15px 10px; /* 减少侧边距 */
+    /* 按钮优化 */
+    button {
+        padding: 12px 25px;
+        font-size: 1rem;
     }
     
-    .question p {
-        font-size: 0.95rem;
-        margin-bottom: 12px;
+    /* 结果卡片优化 */
+    .result-card {
+        padding: 30px 20px;
     }
     
-    /* === 位置微调 === */
-    .option:nth-child(1) { margin-right: -3px; }
-    .option:nth-child(2) { margin-right: -2px; }
-    .option:nth-child(4) { margin-left: -2px; }
-    .option:nth-child(5) { margin-left: -3px; }
-
-    /* === 确保选项不溢出 === */
-    .options {
-        position: relative;
-        padding: 10px 0 15px; /* 增加底部空间 */
-    }
-    
-    /* 添加左右安全边距 */
-    .question {
-        padding-left: 5px;
-        padding-right: 5px;
-    }
-    
-    /* 精确控制每个选项的位置 */
-    .option:nth-child(1) { 
-        margin-left: 0; 
-        transform: translateX(2px); /* 微调位置 */
-    }
-    
-    .option:nth-child(5) { 
-        margin-right: 0;
-        transform: translateX(-2px); /* 微调位置 */
-    }
-    
-    /* 添加可视边界保护 */
-    .options::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 15px; /* 保护区域宽度 */
-        z-index: 1;
-    }
-    
-    .options::after {
-        right: 0;
-        background: linear-gradient(to right, transparent, white 80%);
+    .tag {
+        min-width: 100%;
+        padding: 15px;
     }
 }
 
-/* 针对超小屏幕设备（如iPhone 5/SE） */
+/* 超小屏幕设备优化 */
 @media (max-width: 360px) {
-    .option {
-        transform: scale(0.85); /* 再缩小15% */
-    }
-    
-    .option label::before {
-        width: 18px;
-        height: 18px;
-        font-size: 13px;
-        line-height: 18px;
-    }
-    
-    .slider-labels {
-        font-size: 0.65rem;
-        padding: 0 2px;
-    }
-    
-    /* 更激进的位置微调 */
-    .option:nth-child(1) { margin-right: -4px; }
-    .option:nth-child(2) { margin-right: -3px; }
-    .option:nth-child(4) { margin-left: -3px; }
-    .option:nth-child(5) { margin-left: -4px; }
-
-    /* 更激进的保护 */
-    .options::after {
-        width: 20px; /* 更大的保护区域 */
-    }
-    
     /* 缩小圆点尺寸 */
     .option label::before {
-        width: 16px;
-        height: 16px;
-        font-size: 12px;
-        line-height: 16px;
+        width: 20px;
+        height: 20px;
+        font-size: 13px;
+        line-height: 20px;
     }
     
-    /* 调整位置 */
-    .option:nth-child(1) { transform: translateX(4px); }
-    .option:nth-child(5) { transform: translateX(-4px); }
-    
-    /* 缩小标签文字 */
+    /* 调整标签说明 */
     .slider-labels {
-        font-size: 0.6rem;
+        font-size: 0.7rem;
+    }
+    
+    /* 按钮调整 */
+    button {
+        width: 90%;
+        margin: 20px auto;
     }
 }
 
+/* 实用类 */
 .hidden {
     display: none;
+}
+
+/* 水波纹效果 */
+.ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, #fff 10%, transparent 10%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10,10);
+    opacity: 0;
+    transition: transform .5s, opacity 1s;
+}
+
+.ripple:active:after {
+    transform: scale(0,0);
+    opacity: .3;
+    transition: 0s;
+}
+
+/* 主题元素 */
+.theme-wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%234361ee"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="%234361ee"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%234361ee"/></svg>');
+    background-size: cover;
+    z-index: -1;
+    opacity: 0.1;
 }
