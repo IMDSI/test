@@ -454,6 +454,52 @@ button:hover {
             transparent 90%);
         z-index: -1;
     }
+
+    /* === 小屏幕设备额外优化 (添加在这里) === */
+    @media (max-width: 480px) {
+        /* 进一步缩小尺寸 */
+        .option label::before {
+            width: 20px;
+            height: 20px;
+            font-size: 13px;
+            line-height: 20px;
+        }
+        
+        .option:nth-child(1) label::before,
+        .option:nth-child(5) label::before {
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* 调整连接线 */
+        .options::before {
+            background: linear-gradient(to right, 
+                transparent 3%, 
+                #e0e0e0 3% 97%, 
+                transparent 97%);
+        }
+        
+        /* 缩小标签字体 */
+        .slider-labels {
+            font-size: 0.65rem;
+        }
+        
+        /* 减少题目间距 */
+        .question {
+            padding: 12px 8px;
+        }
+        
+        .question p {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        /* 紧凑布局 */
+        .options {
+            gap: 3px;
+            padding-bottom: 12px;
+        }
+    }
 }
 
 .hidden {
