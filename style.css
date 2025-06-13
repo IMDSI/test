@@ -357,6 +357,44 @@ button:hover {
     .option:nth-child(2) { margin-right: -2px; }
     .option:nth-child(4) { margin-left: -2px; }
     .option:nth-child(5) { margin-left: -3px; }
+
+    /* === 确保选项不溢出 === */
+    .options {
+        position: relative;
+        padding: 10px 0 15px; /* 增加底部空间 */
+    }
+    
+    /* 添加左右安全边距 */
+    .question {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    
+    /* 精确控制每个选项的位置 */
+    .option:nth-child(1) { 
+        margin-left: 0; 
+        transform: translateX(2px); /* 微调位置 */
+    }
+    
+    .option:nth-child(5) { 
+        margin-right: 0;
+        transform: translateX(-2px); /* 微调位置 */
+    }
+    
+    /* 添加可视边界保护 */
+    .options::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 15px; /* 保护区域宽度 */
+        z-index: 1;
+    }
+    
+    .options::after {
+        right: 0;
+        background: linear-gradient(to right, transparent, white 80%);
+    }
 }
 
 /* 针对超小屏幕设备（如iPhone 5/SE） */
@@ -382,6 +420,28 @@ button:hover {
     .option:nth-child(2) { margin-right: -3px; }
     .option:nth-child(4) { margin-left: -3px; }
     .option:nth-child(5) { margin-left: -4px; }
+
+    /* 更激进的保护 */
+    .options::after {
+        width: 20px; /* 更大的保护区域 */
+    }
+    
+    /* 缩小圆点尺寸 */
+    .option label::before {
+        width: 16px;
+        height: 16px;
+        font-size: 12px;
+        line-height: 16px;
+    }
+    
+    /* 调整位置 */
+    .option:nth-child(1) { transform: translateX(4px); }
+    .option:nth-child(5) { transform: translateX(-4px); }
+    
+    /* 缩小标签文字 */
+    .slider-labels {
+        font-size: 0.6rem;
+    }
 }
 
 .hidden {
