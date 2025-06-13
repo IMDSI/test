@@ -1,101 +1,3 @@
-/* 添加在文件顶部 */
-/* ===== 通用样式 ===== */
-.slider-labels {
-    display: none; /* 默认隐藏，移动端再显示 */
-    justify-content: space-between;
-    font-size: 0.8rem;
-    color: #666;
-    padding: 5px 0;
-}
-
-/* 隐藏选项文字 - 为视觉化做准备 */
-.option label span {
-    display: block; /* 桌面端显示 */
-}
-
-/* ===== 移动端样式 ===== */
-@media (max-width: 768px) {
-    .slider-labels {
-        display: flex; /* 只在移动端显示 */
-    }
-    
-    /* 隐藏原始文字标签 */
-    .option label span {
-        display: none;
-    }
-    
-    /* 保留之前添加的视觉化样式 */
-    .options {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: nowrap;
-        padding: 10px 0;
-    }
-    
-    .option {
-        flex: 1;
-        text-align: center;
-        margin: 0 2px;
-    }
-    
-    .option label::before {
-        content: "";
-        display: block;
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        margin: 0 auto;
-        background: #e0e0e0;
-        transition: all 0.3s ease;
-    }
-    
-    .option:nth-child(1) label::before {
-        content: "×";
-        background: #ff6b6b;
-        color: white;
-        font-size: 16px;
-        line-height: 24px;
-    }
-    
-    .option:nth-child(2) label::before {
-        width: 18px;
-        height: 18px;
-        background: #f8c4c4;
-    }
-    
-    .option:nth-child(3) label::before {
-        content: "●";
-        background: #4361ee;
-        color: white;
-        font-size: 16px;
-        line-height: 24px;
-    }
-    
-    .option:nth-child(4) label::before {
-        width: 18px;
-        height: 18px;
-        background: #c4d0f8;
-    }
-    
-    .option:nth-child(5) label::before {
-        content: "√";
-        background: #51cf66;
-        color: white;
-        font-size: 16px;
-        line-height: 24px;
-    }
-    
-    .option input[type="radio"]:checked + label::before {
-        transform: scale(1.2);
-        box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.3);
-    }
-    
-    .question p {
-        font-size: 1rem;
-        margin-bottom: 10px;
-    }
-}
-
 /* 基础样式重置 */
 * {
     margin: 0;
@@ -327,41 +229,55 @@ button:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
+/* 添加在移动端媒体查询之前 */
+.slider-labels {
+    display: none; /* 默认全部隐藏 */
+}
+
 @media (max-width: 768px) {
-    /* === 移除所有背景框 === */
+    /* 保留原有移动端样式... */
+    .slider-labels {
+        display: flex; /* 仅在移动端显示 */
+    }
+}
+
+/* ====================== */
+/* 移动端优化 - 紧凑圆点布局 */
+/* ====================== */
+@media (max-width: 768px) {
+    /* === 超紧凑布局 === */
     .options {
         display: flex;
-        justify-content: space-between; /* 均匀分布 */
+        justify-content: space-between;
         padding: 10px 0 5px;
-        background: none; /* 移除背景 */
-        border: none; /* 移除边框 */
-        box-shadow: none; /* 移除阴影 */
-        gap: 4px; /* 紧凑间距 */
+        gap: 0; /* 完全消除间距 */
+        flex-wrap: nowrap; /* 强制单行显示 */
+        overflow: visible; /* 允许轻微超出 */
     }
     
     .option {
-        flex: 1; /* 平均分配空间 */
-        text-align: center;
-        margin: 0;
-        background: none !important; /* 确保无背景 */
+        flex: 0 0 auto; /* 禁止伸缩 */
+        margin: 0; /* 无外边距 */
+        transform: scale(0.9); /* 整体缩小10% */
+        transform-origin: center;
     }
     
+    /* === 极简圆点设计 === */
     .option label {
-        background: transparent !important; /* 透明背景 */
-        padding: 8px 0; /* 减少内边距 */
-        border-radius: 0; /* 移除圆角 */
+        background: transparent !important;
+        padding: 6px 0; /* 最小内边距 */
+        border-radius: 0;
     }
     
-    .option label:hover {
-        background: transparent !important; /* 悬停无变化 */
+    .option label span {
+        display: none; /* 隐藏文字标签 */
     }
     
-    /* === 纯圆点样式 === */
     .option label::before {
         content: "";
         display: block;
-        width: 24px; /* 保持足够点击区域 */
-        height: 24px;
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
         margin: 0 auto;
         background: #e0e0e0;
@@ -373,8 +289,8 @@ button:hover {
         content: "×";
         background: #ff6b6b;
         color: white;
-        font-size: 16px;
-        line-height: 24px;
+        font-size: 14px;
+        line-height: 20px;
     }
     
     /* 左侧 */
@@ -389,8 +305,8 @@ button:hover {
         content: "●";
         background: #4361ee;
         color: white;
-        font-size: 16px;
-        line-height: 24px;
+        font-size: 14px;
+        line-height: 20px;
     }
     
     /* 右侧 */
@@ -405,8 +321,8 @@ button:hover {
         content: "√";
         background: #51cf66;
         color: white;
-        font-size: 16px;
-        line-height: 24px;
+        font-size: 14px;
+        line-height: 20px;
     }
     
     /* === 选中效果优化 === */
@@ -436,70 +352,36 @@ button:hover {
         margin-bottom: 12px;
     }
     
-    /* === 额外：添加微妙的连接线 === */
-    .options {
-        position: relative;
+    /* === 位置微调 === */
+    .option:nth-child(1) { margin-right: -3px; }
+    .option:nth-child(2) { margin-right: -2px; }
+    .option:nth-child(4) { margin-left: -2px; }
+    .option:nth-child(5) { margin-left: -3px; }
+}
+
+/* 针对超小屏幕设备（如iPhone 5/SE） */
+@media (max-width: 360px) {
+    .option {
+        transform: scale(0.85); /* 再缩小15% */
     }
     
-    .options::before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 0;
-        right: 0;
-        height: 1px;
-        background: linear-gradient(to right, 
-            transparent 10%, 
-            #e0e0e0 10% 90%, 
-            transparent 90%);
-        z-index: -1;
+    .option label::before {
+        width: 18px;
+        height: 18px;
+        font-size: 13px;
+        line-height: 18px;
     }
-
-    /* === 小屏幕设备额外优化 (添加在这里) === */
-    @media (max-width: 480px) {
-        /* 进一步缩小尺寸 */
-        .option label::before {
-            width: 20px;
-            height: 20px;
-            font-size: 13px;
-            line-height: 20px;
-        }
-        
-        .option:nth-child(1) label::before,
-        .option:nth-child(5) label::before {
-            width: 20px;
-            height: 20px;
-        }
-        
-        /* 调整连接线 */
-        .options::before {
-            background: linear-gradient(to right, 
-                transparent 3%, 
-                #e0e0e0 3% 97%, 
-                transparent 97%);
-        }
-        
-        /* 缩小标签字体 */
-        .slider-labels {
-            font-size: 0.65rem;
-        }
-        
-        /* 减少题目间距 */
-        .question {
-            padding: 12px 8px;
-        }
-        
-        .question p {
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-        
-        /* 紧凑布局 */
-        .options {
-            gap: 3px;
-            padding-bottom: 12px;
-        }
+    
+    .slider-labels {
+        font-size: 0.65rem;
+        padding: 0 2px;
     }
+    
+    /* 更激进的位置微调 */
+    .option:nth-child(1) { margin-right: -4px; }
+    .option:nth-child(2) { margin-right: -3px; }
+    .option:nth-child(4) { margin-left: -3px; }
+    .option:nth-child(5) { margin-left: -4px; }
 }
 
 .hidden {
