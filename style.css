@@ -1,3 +1,101 @@
+/* 添加在文件顶部 */
+/* ===== 通用样式 ===== */
+.slider-labels {
+    display: none; /* 默认隐藏，移动端再显示 */
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #666;
+    padding: 5px 0;
+}
+
+/* 隐藏选项文字 - 为视觉化做准备 */
+.option label span {
+    display: block; /* 桌面端显示 */
+}
+
+/* ===== 移动端样式 ===== */
+@media (max-width: 768px) {
+    .slider-labels {
+        display: flex; /* 只在移动端显示 */
+    }
+    
+    /* 隐藏原始文字标签 */
+    .option label span {
+        display: none;
+    }
+    
+    /* 保留之前添加的视觉化样式 */
+    .options {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        padding: 10px 0;
+    }
+    
+    .option {
+        flex: 1;
+        text-align: center;
+        margin: 0 2px;
+    }
+    
+    .option label::before {
+        content: "";
+        display: block;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        margin: 0 auto;
+        background: #e0e0e0;
+        transition: all 0.3s ease;
+    }
+    
+    .option:nth-child(1) label::before {
+        content: "×";
+        background: #ff6b6b;
+        color: white;
+        font-size: 16px;
+        line-height: 24px;
+    }
+    
+    .option:nth-child(2) label::before {
+        width: 18px;
+        height: 18px;
+        background: #f8c4c4;
+    }
+    
+    .option:nth-child(3) label::before {
+        content: "●";
+        background: #4361ee;
+        color: white;
+        font-size: 16px;
+        line-height: 24px;
+    }
+    
+    .option:nth-child(4) label::before {
+        width: 18px;
+        height: 18px;
+        background: #c4d0f8;
+    }
+    
+    .option:nth-child(5) label::before {
+        content: "√";
+        background: #51cf66;
+        color: white;
+        font-size: 16px;
+        line-height: 24px;
+    }
+    
+    .option input[type="radio"]:checked + label::before {
+        transform: scale(1.2);
+        box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.3);
+    }
+    
+    .question p {
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+}
+
 /* 基础样式重置 */
 * {
     margin: 0;
@@ -229,33 +327,95 @@ button:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* 响应式设计 */
 @media (max-width: 768px) {
-    .container {
-        padding: 15px;
-    }
-    
-    h1 {
-        font-size: 2rem;
-    }
-    
-    .options {
-        flex-direction: column;
-    }
-    
-    .option {
-        margin: 5px 0;
-    }
-    
-    .tag {
-        min-width: 100%;
-        font-size: 1.1rem;
-    }
-    
-    button {
-        width: 100%;
-        margin: 20px 0;
-    }
+  /* 移除原有选项样式 */
+  .options {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    padding: 10px 0;
+  }
+  
+  .option {
+    flex: 1;
+    text-align: center;
+    margin: 0 2px;
+  }
+  
+  /* 隐藏文字标签 */
+  .option label span {
+    display: none;
+  }
+  
+  /* 视觉化选项点 */
+  .option label::before {
+    content: "";
+    display: block;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin: 0 auto;
+    background: #e0e0e0;
+    transition: all 0.3s ease;
+  }
+  
+  /* 不同位置的样式 */
+  .option:nth-child(1) label::before {
+    content: "×";
+    background: #ff6b6b;
+    color: white;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  
+  .option:nth-child(2) label::before {
+    width: 18px;
+    height: 18px;
+    background: #f8c4c4;
+  }
+  
+  .option:nth-child(3) label::before {
+    content: "●";
+    background: #4361ee;
+    color: white;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  
+  .option:nth-child(4) label::before {
+    width: 18px;
+    height: 18px;
+    background: #c4d0f8;
+  }
+  
+  .option:nth-child(5) label::before {
+    content: "√";
+    background: #51cf66;
+    color: white;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  
+  /* 选中状态 */
+  .option input[type="radio"]:checked + label::before {
+    transform: scale(1.2);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.3);
+  }
+  
+  /* 添加说明文字 */
+  .slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #666;
+    padding: 5px 0;
+  }
+
+  /* 问题文字调整 */
+  .question p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
 }
 
 .hidden {
