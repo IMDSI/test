@@ -163,7 +163,7 @@ function initPage() {
     }
 }
 
-// 渲染题目
+// 渲染题目 - 修改后的函数
 function renderQuestions() {
     let html = '';
     
@@ -174,24 +174,29 @@ function renderQuestions() {
                 <div class="options">
                     <div class="option">
                         <input type="radio" id="${question.id}-1" name="${question.id}" value="1">
-                        <label for="${question.id}-1">非常不符合</label>
+                        <label for="${question.id}-1"><span>非常不符合</span></label>
                     </div>
                     <div class="option">
                         <input type="radio" id="${question.id}-2" name="${question.id}" value="2">
-                        <label for="${question.id}-2">不太符合</label>
+                        <label for="${question.id}-2"><span>不太符合</span></label>
                     </div>
                     <div class="option">
                         <input type="radio" id="${question.id}-3" name="${question.id}" value="3">
-                        <label for="${question.id}-3">一般</label>
+                        <label for="${question.id}-3"><span>一般</span></label>
                     </div>
                     <div class="option">
                         <input type="radio" id="${question.id}-4" name="${question.id}" value="4">
-                        <label for="${question.id}-4">比较符合</label>
+                        <label for="${question.id}-4"><span>比较符合</span></label>
                     </div>
                     <div class="option">
                         <input type="radio" id="${question.id}-5" name="${question.id}" value="5">
-                        <label for="${question.id}-5">非常符合</label>
+                        <label for="${question.id}-5"><span>非常符合</span></label>
                     </div>
+                </div>
+                <!-- 只在移动端显示的标签 -->
+                <div class="slider-labels">
+                    <span>非常不同意</span>
+                    <span>非常同意</span>
                 </div>
             </div>
         `;
