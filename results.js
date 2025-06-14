@@ -25,9 +25,31 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 复制按钮事件
     copyBtn.addEventListener('click', () => {
-        navigator.clipboard.writeText(window.location.href);
-        alert('链接已复制！分享给朋友一起测试吧~');
+        // 使用GitHub Pages地址
+        const shareUrl = 'https://imdsi.github.io/test/';
+        
+        navigator.clipboard.writeText(shareUrl)
+            .then(() => {
+                alert('测试链接已复制！邀请朋友一起探索吧~');
+            })
+            .catch(err => {
+                console.error('复制失败:', err);
+                // 备选复制方案
+                const tempInput = document.createElement('textarea');
+                tempInput.value = shareUrl;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                alert('链接已复制！分享给朋友吧！');
+            });
     });
+
+    // ===== 添加分享描述文本修改 =====
+    const shareText = document.querySelector('.share-section p');
+    if (shareText) {
+        shareText.textContent = '分享测试给朋友，一起探索宿舍人格！';
+    }
 });
 
 // 渲染结果报告
