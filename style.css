@@ -314,6 +314,16 @@ p {
 }
 
 @media (max-width: 768px) {
+    .share-section p {
+        font-size: 0.9rem;
+        padding: 0 10px;
+    }
+    
+    #copy-btn {
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+    
     .container {
         padding: 15px;
     }
