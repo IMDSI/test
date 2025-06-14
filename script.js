@@ -1,3 +1,11 @@
+// ===== 浏览器兼容性检查 =====
+// 检查 localStorage 支持
+if (typeof localStorage === 'undefined') {
+    console.warn("浏览器不支持localStorage，将无法保存进度");
+    // 这里可以添加替代方案，例如使用 URL 参数保存进度
+    alert("注意：您的浏览器不支持保存进度功能，请一次性完成测试");
+}
+
 const navigationButtons = document.querySelector('.navigation-buttons');
 
 // DOM元素
