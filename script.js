@@ -1,9 +1,8 @@
+// Copyright (c) 2025 IMDSI. Licensed under the MIT License.
 // ===== 浏览器兼容性检查 =====
 // 检查 localStorage 支持
 if (typeof localStorage === 'undefined') {
     console.warn("浏览器不支持localStorage，将无法保存进度");
-    // 这里可以添加替代方案，例如使用 URL 参数保存进度
-    alert("注意：您的浏览器不支持保存进度功能，请一次性完成测试");
 }
 
 const navigationButtons = document.querySelector('.navigation-buttons');
@@ -191,22 +190,52 @@ function isPageComplete() {
 
 // 提交问卷
 function submitQuiz() {
-    //计算维度分数
-    const scores = {};
-    const dimensions = [
-        'sleep', 'cleanliness', 'sound', 
-        'entertainment', 'social', 'study',
-        'boundary', 'conflict', 'planning'
-    ];
+    // 收集当前页答案
+    collectAnswers();
     
-    dimensions.forEach(dim => {
-        scores[dim] = calculateDimensionScore(answers, dim);
+    // 检查所有题目是否完成
+    let allAnswered = true;
+    const unansweredQuestions = [];
+    
+    questions.forEach(question => {
+        if (typeof answers[question.id] === 'undefined') {
+            allAnswered = false;
+            unansweredQuestions.push(question.id);
+        }
     });
+    
+    if (!allAnswered) {
+        // 找出未答题所在的页码
+        const unansweredPages = new Set();
+        unansweredQuestions.forEach(qId => {
+            const questionIndex = questions.findIndex(q => q.id === qId);
+            if (questionIndex >= 0) {
+                const pageNum = Math.floor(questionIndex / PAGE_SIZE) + 1;
+                unansweredPages.add(pageNum);
+            }
+        });
+        
+        alert(`请完成所有问题后再提交！\n未完成的问题在第 ${Array.from(unansweredPages).join(', ')} 页`);
+        return;
+    }
+    
+    // 计算所有维度分数
+    const calculatedScores = {
+        sleep: calculateDimensionScore(answers, 'sleep'),
+        cleanliness: calculateDimensionScore(answers, 'cleanliness'),
+        sound: calculateDimensionScore(answers, 'sound'),
+        entertainment: calculateDimensionScore(answers, 'entertainment'),
+        social: calculateDimensionScore(answers, 'social'),
+        study: calculateDimensionScore(answers, 'study'),
+        boundary: calculateDimensionScore(answers, 'boundary'),
+        conflict: calculateDimensionScore(answers, 'conflict'),
+        planning: calculateDimensionScore(answers, 'planning')
+    };
     
     // 跳转到结果页
     const params = new URLSearchParams();
-    dimensions.forEach(dim => {
-        params.append(dim, scores[dim]);
+    Object.entries(calculatedScores).forEach(([dim, score]) => {
+        params.append(dim, score);
     });
     
     window.location.href = `results.html?${params.toString()}`;
