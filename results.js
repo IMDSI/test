@@ -1,3 +1,4 @@
+// Copyright (c) 2025 IMDSI. Licensed under the MIT License.
 // DOM元素
 const resultReport = document.getElementById('result-report');
 const matchTags = document.getElementById('match-tags');
@@ -74,54 +75,87 @@ function renderReport() {
         conflict: parseInt(urlParams.get('conflict')) || 50,
         planning: parseInt(urlParams.get('planning')) || 50
     };
-
     
-    // 生成标签
-    const tags = {};
-    Object.keys(scores).forEach(dim => {
-        tags[dim] = dimensionTags[dim](scores[dim]);
-    });
+    // 计算核心维度分数
+    const coreScores = {
+        lifestyle: Math.round((scores.sleep + scores.cleanliness + scores.sound) / 3),
+        interest: Math.round((scores.entertainment + scores.social + scores.study) / 3),
+        values: Math.round((scores.boundary + scores.conflict + scores.planning) / 3)
+    };
     
-    // 确定大类型
-    const personalityType = determinePersonalityType(tags);
-    const personality = getPersonalityDetails(personalityType);
+    // 获取中标签
+    const coreTags = {
+        lifestyle: coreScores.lifestyle > 70 ? "破晓引领者" : 
+                  coreScores.lifestyle < 40 ? "星夜追梦人" : "晨暮均衡者",
+        interest: coreScores.interest > 70 ? "专注深耕者" : 
+                  coreScores.interest < 40 ? "多元体验家" : "平衡探索者",
+        values: coreScores.values > 70 ? "秩序规划师" : 
+                coreScores.values < 40 ? "灵动适应者" : "和谐共建者"
+    };
+    
+    // 获取大标签
+    const tagKey = `${coreTags.lifestyle}-${coreTags.interest}-${coreTags.values}`;
+    const mainTag = mainTagMatrix[tagKey] || mainTagMatrix['default'];
     
     // 渲染报告
     resultReport.innerHTML = `
-        <div class="badge-animation">
-            <h1>你的宿舍人格是</h1>
-            <div class="main-badge">${personality.name}</div>
-            <p>${personality.desc}</p>
+        <div class="main-tag" style="background: linear-gradient(135deg, ${mainTag.color} 0%, #f8f9fa 100%);">
+            <div class="tag-icon">${mainTag.icon}</div>
+            <h1>${mainTag.name}</h1>
+            <p class="tag-desc">${mainTag.desc}</p>
         </div>
         
-        <div class="tag-section">
-            <h2>你的专属标签</h2>
-            <div class="tag-row">
-                ${personality.tags.map(tag => `
-                    <div class="tag">
-                        <span class="tag-icon">${tag.split(' ')[0]}</span>
-                        <span>${tag}</span>
-                    </div>
-                `).join('')}
+        <div class="core-dimensions">
+            <div class="dimension-card">
+                <h2>生活习惯</h2>
+                <div class="dimension-score">${coreScores.lifestyle}分</div>
+                <div class="dimension-tag">${coreTags.lifestyle}</div>
+                <div class="sub-dimensions">
+                    <p>作息模式: ${scores.sleep}分</p>
+                    <p>整洁需求: ${scores.cleanliness}分</p>
+                    <p>声音敏感: ${scores.sound}分</p>
+                </div>
+            </div>
+            
+            <div class="dimension-card">
+                <h2>兴趣爱好</h2>
+                <div class="dimension-score">${coreScores.interest}分</div>
+                <div class="dimension-tag">${coreTags.interest}</div>
+                <div class="sub-dimensions">
+                    <p>娱乐方式: ${scores.entertainment}分</p>
+                    <p>社交倾向: ${scores.social}分</p>
+                    <p>学习特点: ${scores.study}分</p>
+                </div>
+            </div>
+            
+            <div class="dimension-card">
+                <h2>价值观</h2>
+                <div class="dimension-score">${coreScores.values}分</div>
+                <div class="dimension-tag">${coreTags.values}</div>
+                <div class="sub-dimensions">
+                    <p>边界意识: ${scores.boundary}分</p>
+                    <p>冲突处理: ${scores.conflict}分</p>
+                    <p>未来规划: ${scores.planning}分</p>
+                </div>
             </div>
         </div>
         
-        <div class="tag-section">
-            <h2>详细维度分析</h2>
-            <p><strong>作息模式:</strong> ${tags.sleep}</p>
-            <p><strong>整洁要求:</strong> ${tags.cleanliness}</p>
-            <p><strong>声音敏感度:</strong> ${tags.sound}</p>
-            <p><strong>娱乐偏好:</strong> ${tags.entertainment}</p>
-            <p><strong>社交能量:</strong> ${tags.social}</p>
-            <p><strong>学习习惯:</strong> ${tags.study}</p>
-            <p><strong>边界意识:</strong> ${tags.boundary}</p>
-            <p><strong>冲突处理:</strong> ${tags.conflict}</p>
-            <p><strong>未来规划:</strong> ${tags.planning}</p>
+        <div class="personal-advice">
+            <h3>专属建议</h3>
+            <p>基于您的三维度分析，为您提供以下宿舍生活建议：</p>
+            <ul>
+                <li>保持规律的作息时间，与室友协商安静时段</li>
+                <li>在公共区域使用耳机，尊重他人空间</li>
+                <li>每周安排固定时间与室友交流，增进理解</li>
+                <li>创建个人学习空间，提高专注度</li>
+            </ul>
         </div>
     `;
     
     // 渲染匹配推荐
-    matchTags.innerHTML = personality.matches.map(tag => `
-        <span class="match-tag">${tag}</span>
-    `).join('');
+    matchTags.innerHTML = `
+        <span class="match-tag">晨光规划家</span>
+        <span class="match-tag">时光调和者</span>
+        <span class="match-tag">星河架构师</span>
+    `;
 }
