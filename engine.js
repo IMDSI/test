@@ -1,8 +1,7 @@
 // Copyright (c) 2025 IMDSI. Licensed under the MIT License.
 
 // 常量定义
-const QUESTION_VERSION = "2024.06B";
-const PAGE_SIZE = 7;
+const QUESTION_VERSION = "2025.06B";
 const MAX_WEIGHT = 1.25;
 
 // 题目数据 (简化为8题示例)
@@ -54,6 +53,17 @@ const questions = [
     {id: "q28", text: "我有明确的职业/学业发展三年规划", dimension: "planning", isReverse: false, weight: 1.00},
     {id: "q29", text: "我会优先完成学习任务再安排娱乐活动", dimension: "planning", isReverse: false, weight: 1.00}
 ];
+
+const PAGE_SIZE = 6;
+const totalPages = Math.ceil(questions.length / PAGE_SIZE);
+const lastPageSize = questions.length % PAGE_SIZE || PAGE_SIZE;
+
+// 导出变量到全局作用域
+window.quizConfig = {
+    PAGE_SIZE,
+    totalPages,
+    questions
+};
 
 // 计算维度分数
 function calculateDimensionScore(answers, dimension) {
