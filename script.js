@@ -15,11 +15,32 @@ const progressFill = document.getElementById('progress-fill');
 const pageCounter = document.getElementById('page-counter');
 
 let currentPage = 1;
-let totalPages = Math.ceil(questions.length / PAGE_SIZE);
 let answers = loadProgress();
+
+// 滚动到第一个未答题
+function scrollToFirstUnanswered(pageQuestions) {
+    for (const question of pageQuestions) {
+        if (!answers[question.id]) {
+            const questionElement = document.querySelector(`[data-id="${question.id}"]`);
+            if (questionElement) {
+                questionElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                break;
+            }
+        }
+    }
+}
 
 // 初始化页面
 function initPage() {
+
+    // 从全局配置获取
+    const config = window.quizConfig || {};
+    const PAGE_SIZE = config.PAGE_SIZE || 6;
+    const totalPages = config.totalPages || 5;
+
     // 检查重置参数
     const urlParams = new URLSearchParams(window.location.search);
     const reset = urlParams.get('reset');
@@ -46,6 +67,9 @@ function initPage() {
 
 // 渲染当前页题目
 function renderPage(page) {
+    const PAGE_SIZE = window.quizConfig?.PAGE_SIZE || 6;
+    const totalPages = window.quizConfig?.totalPages || 5;
+
     const startIdx = (page - 1) * PAGE_SIZE;
     const endIdx = Math.min(startIdx + PAGE_SIZE, questions.length);
     const pageQuestions = questions.slice(startIdx, endIdx);
@@ -95,13 +119,42 @@ function renderPage(page) {
     } else {
         navigationButtons.style.justifyContent = 'space-between';
     }
+
+    setTimeout(() => {
+        // 检查该页是否有未答题
+        const unanswered = pageQuestions.some(q => !answers[q.id]);
+        
+        if (unanswered) {
+            // 如果有未答题，滚动到第一个未答题
+            scrollToFirstUnanswered(pageQuestions);
+        } else {
+            // 如果全部已答，只滚动到页面顶部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }, 50); // 稍等渲染完成
 }
 
 // 更新进度
 function updateProgress() {
+    // 从全局配置获取必要参数
+    const config = window.quizConfig || {};
+    const PAGE_SIZE = config.PAGE_SIZE || 6;
+    const totalPages = config.totalPages || 5;
+    const questions = config.questions || [];
+
+    // 计算进度百分比
     const progress = (currentPage / totalPages) * 100;
     progressFill.style.width = `${progress}%`;
-    pageCounter.textContent = `第 ${currentPage}/${totalPages} 部分`;
+
+    // 更新页面指示器
+    document.getElementById('current-page').textContent = currentPage;
+    document.getElementById('total-pages').textContent = totalPages;
+    
+    // 更新题目统计
+    const startIdx = (currentPage - 1) * PAGE_SIZE;
+    const endIdx = Math.min(startIdx + PAGE_SIZE, questions.length);
+    const pageSize = endIdx - startIdx;
+    document.getElementById('page-stats').textContent = `(${pageSize}题)`;
 }
 
 // 保存进度
