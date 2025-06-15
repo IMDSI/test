@@ -1,3 +1,4 @@
+// Copyright (c) 2025 IMDSI. Licensed under the MIT License.
 // 题库版本
 const QUESTION_VERSION = "2024.06A";
 // 分页设置
@@ -133,6 +134,12 @@ const personalityTypes = {
         ["🌅 晨鸟型", "📖 自律学习家", "🎯 目标导向型"],
         "严格自律的生活规划师，目标明确，执行力强",
         ["🍃 随遇而安型", "🎮 娱乐平衡者"]
+    ],
+
+    "balanced": [
+        ["⚖️ 平衡大师"],
+        "你的生活方式充满多样性，能适应各种环境！",
+        ["所有类型"]
     ]
 };
 
@@ -255,18 +262,15 @@ function getPersonalityDetails(typeId) {
     // 为特定类型设置自定义名称
     let displayName;
     switch(typeId) {
-        // 新增的极端类型
         case "extreme-sensitive":
-            displayName = "🚨 极致敏感型人格";
+            displayName = "🚨 极致敏感型";
             break;
         case "night-owl-extreme":
-            displayName = "🌌 深度夜猫型人格";
+            displayName = "🌌 深度夜猫型";
             break;
         case "self-disciplined-extreme":
-            displayName = "⏱️ 极度自律型人格";
+            displayName = "⏱️ 极度自律型";
             break;
-            
-        // 原始8种人格类型
         case "night-scholar":
             displayName = "🌙 静谧学者";
             break;
@@ -291,8 +295,9 @@ function getPersonalityDetails(typeId) {
         case "adventurer":
             displayName = "🚀 挑战开拓者";
             break;
-            
-        // 默认情况
+        case "balanced":
+            displayName = "⚖️ 平衡大师";
+            break;
         default:
             displayName = baseDetails[0].join(" + ");
     }
