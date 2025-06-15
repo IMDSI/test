@@ -563,3 +563,23 @@ p {
         font-size: 3rem;
     }
 }
+
+.page-indicator {
+    text-align: center;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+#page-stats {
+    font-weight: 500;
+}
