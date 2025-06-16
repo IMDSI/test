@@ -56,8 +56,8 @@
 ## 🙏 致谢
 感谢DeepSeek-R1在开发过程中提供的技术建议，特别在算法和架构方面给予了宝贵指导。
 
-## 📜 许可证
-[MIT](LICENSE) © 2025 IMDSI
-
 ## ❕额外说明
 ？？我草竟然有人在我正式宣传前找到了这个 bro 轻点喷 纯新手 做着好玩自娱自乐的
+
+Copyright © 2025 IMDSI
+Licensed under the MIT License.
